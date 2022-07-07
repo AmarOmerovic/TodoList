@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="mainBorderPane" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amaromerovic.todolist.Controller">
+    <top>
+        <VBox style="-fx-background-color: white;">
+            <MenuBar useSystemMenuBar="true" VBox.vgrow="ALWAYS">
+                <Menu mnemonicParsing="false" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 15;" text="File">
+                    <MenuItem onAction="#showNewItemDialog" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 15;" text="New">
+                    </MenuItem>
+                    <SeparatorMenuItem />
+                    <MenuItem onAction="#showEditItemDialog" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 15;" text="Edit" />
+                    <SeparatorMenuItem />
+                    <MenuItem onAction="#deleteItem" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 15;" text="Delete" />
+                    <SeparatorMenuItem />
+                    <MenuItem onAction="#exit" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 15;" text="Exit" />
+                </Menu>
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
+            <effect>
+               <InnerShadow>
+                  <color>
+                     <Color red="0.7368420958518982" green="0.6890838146209717" blue="0.6890838146209717" />
+                  </color></InnerShadow>
+            </effect>
+            <rotationAxis>
+               <Point3D />
+            </rotationAxis>
+            <opaqueInsets>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </opaqueInsets>
+            </MenuBar>
+         <effect>
+            <InnerShadow />
+         </effect>
+        </VBox>
+    </top>
+    <left>
+        <VBox alignment="CENTER" blendMode="DARKEN" fillWidth="false" spacing="10" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 18; -fx-background-color: lightgray;">
+            <TextField alignment="CENTER" cache="true" cacheHint="SPEED" depthTest="DISABLE" editable="false" focusTraversable="false" prefHeight="31.0" prefWidth="222.0" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 18; -fx-background-color: LIMEGREEN" text=" - Active ToDo Items - ">
+            <effect>
+               <InnerShadow />
+            </effect>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding></TextField>
+            <ToggleButton fx:id="filterToggleButton" blendMode="SRC_ATOP" centerShape="false" ellipsisString="" focusTraversable="false" mnemonicParsing="false" onAction="#handleFilterButton" pickOnBounds="false" snapToPixel="false" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 14; -fx-background-color: white;" text="Upcoming Items" textAlignment="CENTER" textFill="#212520" textOverrun="LEADING_ELLIPSIS">
+                <tooltip>
+                    <Tooltip style="-fx-font-family: Ubuntu Regular; -fx-font-size: 13;" text="Button Down: Show Upcoming items only. Button Up: Show all items" />
+                </tooltip>
+            <font>
+               <Font name="Ubuntu" size="14.0" />
+            </font>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+            <effect>
+               <DropShadow blurType="ONE_PASS_BOX" />
+            </effect>
+            </ToggleButton>
+            <ListView fx:id="todoListView" onKeyPressed="#deleteItemWithKey" onMouseClicked="#handleClickListView" style="-fx-border-style: solid; -fx-border-width: 0.5;" VBox.vgrow="ALWAYS">
+            <effect>
+               <InnerShadow />
+            </effect></ListView>
+    <!--        style="-fx-control-inner-background: BLACK;  -fx-control-inner-background-alt: derive(-fx-control-inner-background, 25%);-->
+            <TextField alignment="CENTER" editable="false" prefHeight="31.0" prefWidth="222.0" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 18; -fx-background-color: Aqua;" text=" - Outdated ToDo Items - ">
+            <effect>
+               <InnerShadow />
+            </effect>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding></TextField>
+            <ListView fx:id="oldList" onKeyPressed="#deleteItemWithKey" onMouseClicked="#handleClickListViewTwo" style="-fx-border-style: solid; -fx-border-width: 0.5;" VBox.vgrow="ALWAYS">
+            <effect>
+               <InnerShadow />
+            </effect></ListView>
+            <ToolBar style="-fx-background-color: white;">
+                <Button alignment="BOTTOM_LEFT" maxHeight="-NaN" maxWidth="-NaN" onAction="#showNewItemDialog">
+                    <tooltip>
+                        <Tooltip style="-fx-font-family: Ubuntu Regular; -fx-font-size: 13;" text="Add a new Todo Item" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView nodeOrientation="INHERIT">
+                            <Image requestedHeight="15" requestedWidth="15" smooth="true" url="@New.png" />
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button maxHeight="-NaN" maxWidth="-NaN" onAction="#showEditItemDialog">
+                    <tooltip>
+                        <Tooltip style="-fx-font-family: Ubuntu Regular; -fx-font-size: 13;" text="Edit a Todo Item" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0">
+                            <Image requestedHeight="15" requestedWidth="15" smooth="true" url="@icons8-edit-file-32.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button maxHeight="-NaN" maxWidth="-NaN" onAction="#deleteItem">
+                    <tooltip>
+                        <Tooltip style="-fx-font-family: Ubuntu Regular; -fx-font-size: 13;" text="Delete a Todo Item" />
+                    </tooltip>
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0">
+                            <Image requestedHeight="15" requestedWidth="15" smooth="true" url="@icons8-delete-file-32.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <padding>
+               <Insets bottom="5" left="20" right="20" top="5" />
+            </padding>
+            <VBox.margin>
+               <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
+            </VBox.margin>
+            <effect>
+               <DropShadow />
+            </effect>
+            </ToolBar>
+            <padding>
+                <Insets bottom="2" left="5" right="5" top="8" />
+            </padding>
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.7631579041481018" green="0.7631579041481018" blue="0.7631579041481018" />
+               </color></InnerShadow>
+         </effect>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+         <opaqueInsets>
+            <Insets bottom="500.0" left="500.0" right="500.0" top="500.0" />
+         </opaqueInsets>
+        </VBox>
+    </left>
+    <center>
+        <VBox style="-fx-background-color: black;">
+            <TextArea fx:id="itemDetailsTextArea" blendMode="SCREEN" editable="false" style="-fx-background-color: WHITE;" wrapText="true" VBox.vgrow="ALWAYS">
+                <font>
+                    <Font size="20.0" />
+                </font>
+            <effect>
+               <InnerShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="DEFAULT" />
+            </cursor>
+            </TextArea>
+            <HBox alignment="BOTTOM_RIGHT" spacing="2.5" style="-fx-font-family: Ubuntu Regular; -fx-font-size: 18; -fx-background-color: lightgray;">
+                <Label text="Due: ">
+                    <font>
+                        <Font name="Ubuntu Bold" size="18.5" />
+                    </font>
+                    <padding>
+                        <Insets bottom="2" right="2" />
+                    </padding>
+                </Label>
+                <Label fx:id="deadlineLabel">
+                    <font>
+                        <Font name="Ubuntu Regular" size="16" />
+                    </font>
+                    <padding>
+                        <Insets bottom="2" right="15" />
+                    </padding>
+                </Label>
+            </HBox>
+         <effect>
+            <InnerShadow />
+         </effect>
+        </VBox>
+    </center>
+   <effect>
+      <InnerShadow />
+   </effect>
+</BorderPane>
